@@ -4,6 +4,8 @@
 int count_len(char *av)
 {
     int fd  = open(av,O_RDONLY);
+    if(fd == -1)
+        return(1);
     int count = 0;
     while(1)
     {
@@ -34,6 +36,11 @@ int main(int ac, char **av)
                 break;
             i++;
         }
+       i = 0;
+        floid_fill(map,2,2);
+        while(map[i])
+            printf("%s",map[i++]);
+        //printf("%d", check_collectibles(map));
     }
     else{
         printf("something is wrong");
