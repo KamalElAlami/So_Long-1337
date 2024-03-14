@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:42 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/14 05:20:09 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/14 06:31:12 by dedsec           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ int check_player(char **map)
     }
     return (player);
 }
-// typedef struct t_cord{
-//     int x;
-//     int y;
-// }t_cord;
 
 void flood_fill(char **map,int x, int y)
 {
@@ -142,6 +138,26 @@ int check_walls(char **map)
         if (map[j][i] != '1')
             return (1);
         i++;
+    }
+    return (0);
+}
+
+int check_elements(char **map)
+{
+    int i;
+
+    i = 0;
+    while (*map)
+    {
+        while ((*map)[i])
+        {
+            if ((*map)[i] != '1' && (*map)[i] != '0' && (*map)[i] != 'P' 
+                && (*map)[i] != 'C' && (*map)[i] != 'E' && (*map)[i] != '\n')   
+                return (1);
+            i++;
+        }
+        i = 0;
+        map++;
     }
     return (0);
 }
