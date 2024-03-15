@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:33 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/14 20:37:49 by dedsec           ###   ########.fr       */
+/*   Updated: 2024/03/15 03:43:53 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/get_next_line.h"
 #include "includes/so_long.h"
+#include "includes/ft_printf.h"
 
 void ft_perror(char *msg)
 {
-    printf("%s", msg);
+    ft_printf("%s", msg);
     exit(EXIT_FAILURE);
 }
 
@@ -51,6 +52,50 @@ void parse_map(char **map)
     if (check_elements(map) == 1)
         ft_perror("there is a strange element other than P E C 1 0");
 }
+void check_path(char *path)
+{
+    int i;
+    
+    i = 0;
+    if (!path)
+        ft_perror("map path is not valid or there is no map");
+    while (path[i])
+    {
+        if (path[i] == '.')
+        {
+            if(ft_strcmp(path + i, ".ber"))
+                ft_perror("invalid map extension");
+        }
+        i++;
+    }
+}
+void charge_map(int fd, char **buffer)
+{
+    int i;
+    
+    i = 0;
+    while(1)
+    {
+        buffer[i] = get_next_line(fd);
+        if(!buffer[i])
+            break;
+        i++;
+    }
+    buffer[++i] = NULL;
+    close(fd);
+}
+void clone_map(char **map, char **buffer)
+{
+    int i;
+
+    i = 0;
+    while (map[i])
+    {
+        buffer[i] = ft_strdup(map[i]);
+        i++;
+    }
+    buffer[i] = NULL;
+}
     
 int main(int ac, char **av)
 {
@@ -61,39 +106,24 @@ int main(int ac, char **av)
         char **map;
         char **smap;
         t_cord siko;
-        
+
+        check_path(av[1]);
         fd = open(av[1], O_RDONLY);
-        if(fd == -1)
+        if (fd == -1)
             return(1);
         map = malloc(sizeof(char *) * count_len(av[1]) + 1);
         smap = malloc(sizeof(char *) * (count_len(av[1])) + 1);
-        i = 0;
-        int count = 0;
-        while(1)
-        {
-            map[i] = get_next_line(fd);
-            if(!map[i])
-                break;
-            i++;
-        }
-        map[++i] = NULL;
-        close(fd);
-        i = 0;
-        while (map[i])
-        {
-            smap[i] = ft_strdup(map[i]);
-            i++;
-        }
-        smap[i] = NULL;
+        charge_map(fd, map);
+        clone_map(map, smap);
         parse_map(map);
         siko = get_coordinates(map);
         printf("x => %d y => %d \n", siko.x, siko.y);
-        flood_fill(smap, 6, 7);
+        // flood_fill(smap, siko.x, siko.y);
         i = 0;
         while (smap[i])
             printf("%s", smap[i++]);
     }
     else{
-        printf("something is wrong");
+        printf("something is wrong check your arguments");
     }
 }
