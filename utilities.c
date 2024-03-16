@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:23 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/15 01:46:53 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:37:52 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,19 @@ int	check_elements(char **map)
 		map++;
 	}
 	return (0);
+}
+
+void map_size(char **map, t_cord *cooord)
+{
+	int i;
+	int j;
+	
+	j = 0;
+	i = 0;
+	while (map[j])
+		j++;
+	while (map[0][i])
+		i++;
+	cooord->Xlen = i;
+	cooord->Ylen = j;
 }

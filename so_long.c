@@ -6,13 +6,14 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:33 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/15 03:43:53 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/16 00:17:30 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/get_next_line.h"
 #include "includes/so_long.h"
 #include "includes/ft_printf.h"
+#include "mlx.h"
 
 void ft_perror(char *msg)
 {
@@ -37,6 +38,7 @@ int count_len(char *av)
     close(fd);
     return(count);
 }
+
 void parse_map(char **map)
 {
     if (check_collectibles(map) < 1)
@@ -96,7 +98,12 @@ void clone_map(char **map, char **buffer)
     }
     buffer[i] = NULL;
 }
-    
+int move(int key, char **map)
+{
+    printf("%s\n",*map);
+    printf("%d\n",key);
+    return(0);
+}
 int main(int ac, char **av)
 {
     if (ac == 2)
@@ -105,7 +112,8 @@ int main(int ac, char **av)
         int fd;
         char **map;
         char **smap;
-        t_cord siko;
+        t_cord coord;
+        void *mlx = mlx_init();
 
         check_path(av[1]);
         fd = open(av[1], O_RDONLY);
@@ -116,9 +124,12 @@ int main(int ac, char **av)
         charge_map(fd, map);
         clone_map(map, smap);
         parse_map(map);
-        siko = get_coordinates(map);
-        printf("x => %d y => %d \n", siko.x, siko.y);
-        // flood_fill(smap, siko.x, siko.y);
+        flood_fill(smap, coord.x, coord.y);
+        coord = get_coordinates(map);
+        map_size(map, &coord);
+        load_graphics(map, mlx, coord.Xlen, coord.Ylen);
+        mlx_hook(mlx, 2, 0,move, map);
+        mlx_loop(mlx);
         i = 0;
         while (smap[i])
             printf("%s", smap[i++]);
