@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:42 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/16 15:47:56 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:43:38 by dedsec           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,121 +14,38 @@
 #include "includes/so_long.h"
 #include "includes/ft_printf.h"
 
-int	check_collectibles(char **map)
+void parse_map(char **map)
 {
-	int	i;
-	int	collectibles;
-
-	i = 0;
-	collectibles = 0;
-	while (*map)
-	{
-		while ((*map)[i])
-		{
-			if ((*map)[i] == 'C')
-				collectibles++;
-			i++;
-		}
-		i = 0;
-		map++;
-	}
-	return (collectibles);
+    if (check_collectibles(map) < 1)
+        ft_perror("there is no collectibles");
+    if (check_player(map) < 1 || check_player(map) > 1)
+        ft_perror("there is no player or there are several players in the map");
+    if (check_exit(map) < 1 || check_exit(map) > 1)
+        ft_perror("there is no exit or there is several exits in the map");
+    if (is_rectangular(map) == 1)
+        ft_perror("map is not rectangular");
+    if (check_walls(map) == 1)
+        ft_perror("map is not serrounded by walls");
+    if (check_elements(map) == 1)
+        ft_perror("there is a strange element other than P E C 1 0");
 }
 
-int	check_player(char **map)
+void check_path(char *path)
 {
-	int	i;
-	int	player;
-
-	i = 0;
-	player = 0;
-	while (*map)
-	{
-		while ((*map)[i])
-		{
-			if ((*map)[i] == 'P')
-				player++;
-			i++;
-		}
-		i = 0;
-		map++;
-	}
-	return (player);
-}
-
-int	check_exit(char **map)
-{
-	int	i;
-	int	exit;
-
-	i = 0;
-	exit = 0;
-	while (*map)
-	{
-		while ((*map)[i])
-		{
-			if ((*map)[i] == 'E')
-				exit++;
-			i++;
-		}
-		i = 0;
-		map++;
-	}
-	return (exit);
-}
-
-int	is_rectangular(char **map)
-{
-	int	i;
-	int	len;
-
-	i = -1;
-	len = 0;
-	while ((*map)[i++] != '\n')
-		len++;
-	while (*map)
-	{
-		i = 0;
-		while ((*map)[i])
-			i++;
-		if (i != len)
-			return (1);
-		map++;
-	}
-	return (0);
-}
-
-int	check_walls(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (map[j])
-	{
-		while (map[0][i] && map[0][i] != '\n')
-		{
-			if (map[0][1] != '1')
-				return (1);
-			i++;
-		}
-		if (map[j][0] != '1')
-			return (1);
-		if (map[j][ft_strlen(map[j]) - 2] != '1')
-			return (1);
-		i = 0;
-		j++;
-	}
-	j--;
-	i = 0;
-	while (map[j][i] && map[j][i] != '\n')
-	{
-		if (map[j][i] != '1')
-			return (1);
-		i++;
-	}
-	return (0);
+    int i;
+    
+    i = 0;
+    if (!path)
+        ft_perror("map path is not valid or there is no map");
+    while (path[i])
+    {
+        if (path[i] == '.')
+        {
+            if(ft_strcmp(path + i, ".ber"))
+                ft_perror("invalid map extension");
+        }
+        i++;
+    }
 }
 
 int	check_validity(char **map)

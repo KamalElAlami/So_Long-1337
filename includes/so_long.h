@@ -6,6 +6,12 @@
 #include <fcntl.h>
 #include <mlx.h>
 
+typedef struct infos{
+    char **map;
+    void *mlx;
+    void *mlx_win;
+    t_assets all;
+}infos;
 
 typedef struct t_cord {
     int x;
@@ -22,6 +28,7 @@ typedef struct t_assets {
     void *collect_img;
 } t_assets;
 
+int count_len(char *av);
 int check_collectibles(char **map);
 void flood_fill(char **map,int x, int y);
 int is_rectangular(char **map);
@@ -29,10 +36,12 @@ int check_player(char **map);
 int check_exit(char **map);
 int check_walls(char **map);
 int check_elements(char **map);
+void check_path(char *path);
+int	check_validity(char **map);
+void parse_map(char **map);
 t_cord get_coordinates(char **map);
 void map_size(char **map, t_cord *cooord);
 void load_graphics(char **map, void *mlx, int width, int height);
-int	check_validity(char **map);
 
 
 #endif

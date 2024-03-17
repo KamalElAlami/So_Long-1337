@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:23 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/15 17:37:52 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:31:51 by dedsec           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,22 @@ void map_size(char **map, t_cord *cooord)
 		i++;
 	cooord->Xlen = i;
 	cooord->Ylen = j;
+}
+
+int count_len(char *av)
+{
+    int fd  = open(av,O_RDONLY);
+    if(fd == -1)
+        return(1);
+    int count = 0;
+    while(1)
+    {
+        char *str = get_next_line(fd);
+        if(!str)
+            break;
+        count++;
+        free(str);
+    }
+    close(fd);
+    return(count);
 }
