@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:42 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/14 21:19:17 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:47:56 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,28 @@ int	check_walls(char **map)
 		i++;
 	}
 	return (0);
+}
+
+int	check_validity(char **map)
+{
+	int	i;
+	int	j;
+	int	r;
+	
+	j = 0;
+	r = 0; 
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			if (map[j][i] == 'R')
+				r++;
+			i++;
+		}
+		j++;
+	}
+	if (!(check_collectibles(map)) && r)
+		return (0);
+	return (1);
 }

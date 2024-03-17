@@ -6,8 +6,6 @@
 #include <fcntl.h>
 #include <mlx.h>
 
-#define HEIGHT 32
-#define WIDTH 32
 
 typedef struct t_cord {
     int x;
@@ -15,6 +13,14 @@ typedef struct t_cord {
     int Xlen;
     int Ylen;
 } t_cord;
+
+typedef struct t_assets {
+    void *wall_img;
+    void *ground_img;
+    void *player_img;
+    void *exit_img;
+    void *collect_img;
+} t_assets;
 
 int check_collectibles(char **map);
 void flood_fill(char **map,int x, int y);
@@ -26,6 +32,7 @@ int check_elements(char **map);
 t_cord get_coordinates(char **map);
 void map_size(char **map, t_cord *cooord);
 void load_graphics(char **map, void *mlx, int width, int height);
+int	check_validity(char **map);
 
 
 #endif

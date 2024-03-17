@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:33 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/16 00:17:30 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/17 00:20:30 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "includes/so_long.h"
 #include "includes/ft_printf.h"
 #include "mlx.h"
+
+#define KEY_PRESS       2
 
 void ft_perror(char *msg)
 {
@@ -98,12 +100,6 @@ void clone_map(char **map, char **buffer)
     }
     buffer[i] = NULL;
 }
-int move(int key, char **map)
-{
-    printf("%s\n",*map);
-    printf("%d\n",key);
-    return(0);
-}
 int main(int ac, char **av)
 {
     if (ac == 2)
@@ -119,20 +115,17 @@ int main(int ac, char **av)
         fd = open(av[1], O_RDONLY);
         if (fd == -1)
             return(1);
-        map = malloc(sizeof(char *) * count_len(av[1]) + 1);
-        smap = malloc(sizeof(char *) * (count_len(av[1])) + 1);
+        map = malloc(sizeof(char *) * (count_len(av[1]) + 1));
+        smap = malloc(sizeof(char *) * (count_len(av[1]) + 1));
         charge_map(fd, map);
         clone_map(map, smap);
         parse_map(map);
-        flood_fill(smap, coord.x, coord.y);
         coord = get_coordinates(map);
+        flood_fill(smap, coord.x, coord.y);
+        if (check_validity(smap))
+            ft_perror("Your map is not valid");
         map_size(map, &coord);
         load_graphics(map, mlx, coord.Xlen, coord.Ylen);
-        mlx_hook(mlx, 2, 0,move, map);
-        mlx_loop(mlx);
-        i = 0;
-        while (smap[i])
-            printf("%s", smap[i++]);
     }
     else{
         printf("something is wrong check your arguments");
