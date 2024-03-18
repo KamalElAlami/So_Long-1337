@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:33 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/18 00:45:19 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/18 06:23:52 by dedsec           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/get_next_line.h"
 #include "includes/so_long.h"
 #include "includes/ft_printf.h"
-#include "mlx.h"
 
 void	ft_perror(char *msg)
 {

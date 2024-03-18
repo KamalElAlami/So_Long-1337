@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_graphics.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:11:22 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/18 03:32:03 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/18 06:59:38 by dedsec           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ int	key_hook(int key, t_infos *info)
 {
 	int		i;
 	int		j;
+	int		key_press;
 	t_cord	siko;
 
 	j = 0;
 	i = 0;
+	key_press = 0;
 	siko = get_coordinates(info ->map);
 	if (key == 13)
 	{
@@ -91,6 +93,8 @@ int	key_hook(int key, t_infos *info)
 		{
 			info -> map[siko.y][siko.x] = '0';
 			info -> map[siko.y - 1][siko.x] = 'P';
+			key_press++;
+			ft_printf("Move Number : %d", key_press);
 		}
 	}
 	else if (key == 0)
@@ -100,6 +104,8 @@ int	key_hook(int key, t_infos *info)
 		{
 			info -> map[siko.y][siko.x] = '0';
 			info -> map[siko.y][siko.x - 1] = 'P';
+			key_press++;
+			ft_printf("Move Number : %d", key_press);
 		}
 	}
 	else if (key == 1)
@@ -109,6 +115,8 @@ int	key_hook(int key, t_infos *info)
 		{
 			info -> map[siko.y][siko.x] = '0';
 			info -> map[siko.y + 1][siko.x] = 'P';
+			key_press++;
+			ft_printf("Move Number : %d", key_press);
 		}
 	}
 	else if (key == 2)
@@ -118,7 +126,12 @@ int	key_hook(int key, t_infos *info)
 		{
 			info -> map[siko.y][siko.x] = '0';
 			info -> map[siko.y][siko.x + 1] = 'P';
+			key_press++;
+			ft_printf("Move Number : %d", key_press);`
 		}
+		else if (info -> map[siko.y][siko.x + 1] == 'E' 
+				&& check_collectibles(info->map) == 0)
+				exit(0);
 	}
 	else if (key == 53)
 		exit(0);
