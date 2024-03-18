@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:23 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/17 17:31:51 by dedsec           ###   ########.fr       */
+/*   Updated: 2024/03/18 00:42:05 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cord	get_coordinates(char **map)
 			{
 				cord.x = i;
 				cord.y = j;
-				break;
+				break ;
 			}
 			i++;
 		}
@@ -47,10 +47,10 @@ void	flood_fill(char **map, int x, int y)
 	if (map[y][x] == 'E')
 	{
 		map[y][x] = 'R';
-		return;
+		return ;
 	}
 	else
-	map[y][x] = 'X';
+		map[y][x] = 'X';
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);
@@ -77,35 +77,39 @@ int	check_elements(char **map)
 	return (0);
 }
 
-void map_size(char **map, t_cord *cooord)
+void	map_size(char **map, t_cord *cooord)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	j = 0;
 	i = 0;
 	while (map[j])
 		j++;
 	while (map[0][i])
 		i++;
-	cooord->Xlen = i;
-	cooord->Ylen = j;
+	cooord->x_len = i;
+	cooord->y_len = j;
 }
 
-int count_len(char *av)
+int	count_len(char *av)
 {
-    int fd  = open(av,O_RDONLY);
-    if(fd == -1)
-        return(1);
-    int count = 0;
-    while(1)
-    {
-        char *str = get_next_line(fd);
-        if(!str)
-            break;
-        count++;
-        free(str);
-    }
-    close(fd);
-    return(count);
+	int		fd;
+	int		count;
+	char	*str;
+
+	fd = open(av, O_RDONLY);
+	count = 0;
+	if (fd == -1)
+		return (1);
+	while (1)
+	{
+		str = get_next_line(fd);
+		if (!str)
+			break ;
+		count++;
+		free(str);
+	}
+	close(fd);
+	return (count);
 }
