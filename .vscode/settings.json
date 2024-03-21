@@ -4,6 +4,7 @@
         "so_long.h": "c",
         "mlx.h": "c",
         "ft_printf.h": "c",
-        "ios": "c"
+        "ios": "c",
+        "fcntl.h": "c"
     }
 }

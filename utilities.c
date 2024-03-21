@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:23 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/18 00:42:05 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/21 00:28:22 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ t_cord	get_coordinates(char **map)
 	return (cord);
 }
 
-void	flood_fill(char **map, int x, int y)
+void	flood_fill(char **map, int len, int x, int y)
 {
+	if (x < 0 || y < 0 || y >= len)
+		return ;
 	if (map[y][x] == 'R' || map[y][x] == 'X' || map[y][x] == '1')
 		return ;
 	if (map[y][x] == 'E')
@@ -51,45 +53,10 @@ void	flood_fill(char **map, int x, int y)
 	}
 	else
 		map[y][x] = 'X';
-	flood_fill(map, x + 1, y);
-	flood_fill(map, x - 1, y);
-	flood_fill(map, x, y + 1);
-	flood_fill(map, x, y - 1);
-}
-
-int	check_elements(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (*map)
-	{
-		while ((*map)[i])
-		{
-			if ((*map)[i] != '1' && (*map)[i] != '0' && (*map)[i] != 'P'
-				&& (*map)[i] != 'C' && (*map)[i] != 'E' && (*map)[i] != '\n')
-				return (1);
-			i++;
-		}
-		i = 0;
-		map++;
-	}
-	return (0);
-}
-
-void	map_size(char **map, t_cord *cooord)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (map[j])
-		j++;
-	while (map[0][i])
-		i++;
-	cooord->x_len = i;
-	cooord->y_len = j;
+	flood_fill(map, len, x + 1, y);
+	flood_fill(map, len, x - 1, y);
+	flood_fill(map, len, x, y + 1);
+	flood_fill(map, len, x, y - 1);
 }
 
 int	count_len(char *av)
@@ -112,4 +79,23 @@ int	count_len(char *av)
 	}
 	close(fd);
 	return (count);
+}
+
+void	free_array(char **array)
+{
+	int	j;
+
+	j = 0;
+	if (!array)
+		exit(1);
+	while (array[j])
+		free(array[j++]);
+	free(array);
+}
+
+int	close_win(void)
+{
+	ft_printf(GREEN "Bye\n" RESET);
+	exit (0);
+	return (0);
 }

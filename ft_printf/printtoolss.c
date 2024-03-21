@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:25:25 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/15 01:43:05 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:53:15 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	ft_putunbr(unsigned int n)
 	}
 	return (count);
 }
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && (*s1 == *s2))

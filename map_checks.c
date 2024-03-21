@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:42 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/17 17:43:46 by dedsec           ###   ########.fr       */
+/*   Updated: 2024/03/20 08:09:34 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ int	is_rectangular(char **map)
 
 	i = -1;
 	len = 0;
-	while ((*map)[i++] != '\n')
+	while ((*map)[++i] != '\n')
 		len++;
 	while (*map)
 	{
 		i = 0;
-		while ((*map)[i])
+		while ((*map)[i] && (*map)[i] != '\n')
 			i++;
 		if (i != len)
 			return (1);
@@ -104,21 +104,17 @@ int	check_walls(char **map)
 	int	j;
 
 	i = 0;
-	j = 0;
-	while (map[j])
+	j = -1;
+	while (map[++j])
 	{
-		while (map[0][i] && map[0][i] != '\n')
-		{
+		while (map[0][i++] && map[0][i] != '\n')
 			if (map[0][1] != '1')
 				return (1);
-			i++;
-		}
 		if (map[j][0] != '1')
 			return (1);
 		if (map[j][ft_strlen(map[j]) - 2] != '1')
 			return (1);
 		i = 0;
-		j++;
 	}
 	j--;
 	i = 0;
