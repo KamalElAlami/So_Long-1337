@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_player.c                                      :+:      :+:    :+:   */
+/*   move_player_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:11:22 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/22 02:02:32 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/22 03:49:35 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/get_next_line.h"
-#include "includes/so_long.h"
-#include "includes/ft_printf.h"
+#include "../includes/get_next_line.h"
+#include "../includes/so_long_bonus.h"
+#include "../includes/ft_printf.h"
 
 int	move_up(char **map, int y, int x)
 {
@@ -69,7 +69,7 @@ void	map_size(char **map, char **smap, t_cord *cooord)
 		j++;
 	while (map[0][i])
 		i++;
-	if (j > 40 || i > 22)
+	if (i > 40 || j > 22)
 		ft_perror("Your map is not valid", map, smap, NULL);
 	cooord->x_len = i;
 	cooord->y_len = j;

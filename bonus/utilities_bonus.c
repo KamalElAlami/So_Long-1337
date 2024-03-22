@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.c                                        :+:      :+:    :+:   */
+/*   utilities_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:55:23 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/21 20:16:02 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/22 03:49:20 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/get_next_line.h"
-#include "includes/so_long.h"
-#include "includes/ft_printf.h"
+#include "../includes/get_next_line.h"
+#include "../includes/so_long_bonus.h"
+#include "../includes/ft_printf.h"
 
 t_cord	get_coordinates(char **map)
 {

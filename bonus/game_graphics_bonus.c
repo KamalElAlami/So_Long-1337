@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_graphics.c                                    :+:      :+:    :+:   */
+/*   game_graphics_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:11:22 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/03/22 01:30:42 by kael-ala         ###   ########.fr       */
+/*   Updated: 2024/03/22 04:08:53 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/get_next_line.h"
-#include "includes/so_long.h"
-#include "includes/ft_printf.h"
+#include "../includes/get_next_line.h"
+#include "../includes/so_long.h"
+#include "../includes/ft_printf.h"
 
 t_assets	assets_img(void *mlx)
 {
@@ -20,23 +20,23 @@ t_assets	assets_img(void *mlx)
 	int			x;
 	int			y;
 
-	y = 32;
-	x = 32;
+	y = 64;
+	x = 64;
 	all.ground = mlx_xpm_file_to_image(mlx, "./assets/grace.xpm", &x, &y);
 	if (!(all.ground))
-		ft_perror("Error\nSomething wrong with images", NULL, NULL, NULL);
+		exit(EXIT_FAILURE);
 	all.wall = mlx_xpm_file_to_image(mlx, "./assets/stone.xpm", &x, &y);
 	if (!(all.wall))
-		ft_perror("Error\nSomething wrong with images", NULL, NULL, NULL);
+		exit(EXIT_FAILURE);
 	all.play = mlx_xpm_file_to_image(mlx, "./assets/character.xpm", &x, &y);
 	if (!(all.play))
-		ft_perror("Error\nSomething wrong with images", NULL, NULL, NULL);
+		exit(EXIT_FAILURE);
 	all.coll = mlx_xpm_file_to_image(mlx, "./assets/collect.xpm", &x, &y);
 	if (!(all.coll))
-		ft_perror("Error\nSomething wrong with images", NULL, NULL, NULL);
+		exit(EXIT_FAILURE);
 	all.exit = mlx_xpm_file_to_image(mlx, "./assets/exit.xpm", &x, &y);
 	if (!(all.exit))
-		ft_perror("Error\nSomething wrong with images", NULL, NULL, NULL);
+		exit(EXIT_FAILURE);
 	return (all);
 }
 
